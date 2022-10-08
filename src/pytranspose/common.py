@@ -66,3 +66,7 @@ def chord_abc_to_doremi(chord):
 			translated_chord += sf
 		return translated_chord
 	raise Exception("Invalid chord: %s" % chord)
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

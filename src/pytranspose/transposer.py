@@ -1,10 +1,8 @@
 from .abc import (
-	# key_regex as key_regex_abc,
 	get_index_from_key as get_index_from_key_abc,
 	get_key_from_index as get_key_from_index_abc,
 	)
 from .doremi import (
-	# key_regex as key_regex_doremi,
 	get_index_from_key as get_index_from_key_doremi,
 	get_key_from_index as get_key_from_index_doremi,
 	)
@@ -33,13 +31,26 @@ def transpose_chord(source_chord, direction, to_key, chord_style_out='abc'):
 	'MIb'
 	"""
 	if is_abc(source_chord):
+		if is_abc(to_key):
+			pass
+		elif is_doremi(to_key):
+			to_key = chord_doremi_to_abc(to_key)
+		else:
+			raise Exception("Invalid destination key: %s" % to_key)
 		source_index = get_index_from_key_abc(source_chord)
 		k = get_key_from_index_abc(source_index + direction, to_key)
 		chord_style_in = 'abc'
 	elif is_doremi(source_chord):
+		if is_doremi(to_key):
+			pass
+		elif is_abc(to_key):
+			to_key = chord_abc_to_doremi(to_key)
+		else:
+			raise Exception("Invalid destination key: %s" % to_key)
 		source_index = get_index_from_key_doremi(source_chord)
 		k = get_key_from_index_doremi(source_index + direction, to_key)
 		chord_style_in = 'doremi'
+		
 	else:
 		raise Exception("Invalid source chord: %s" % source_chord)
 
@@ -52,7 +63,9 @@ def transpose_chord(source_chord, direction, to_key, chord_style_out='abc'):
 	raise Exception("Invalid output chord style: %s" % chord_style_out)
 
 
-
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
 
 # def transpose_line(source_line, direction, to_key, chord_style_in='abc', chord_style_out='abc'):
 # 	"""Transposes a line a number of keys if it starts with a pipe. Examples:

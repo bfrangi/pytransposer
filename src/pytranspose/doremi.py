@@ -56,3 +56,8 @@ def get_transponation_steps(source_key, target_key):
 	source_index = get_index_from_key(source_key)
 	target_index = get_index_from_key(target_key)
 	return target_index - source_index
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
