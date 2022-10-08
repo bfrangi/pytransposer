@@ -34,3 +34,9 @@ This will run the tests for the main `transposer` sub-module. For the rest of th
     python3 -m src.pytransposer.common -v  
     python3 -m src.pytransposer.abc -v  
     python3 -m src.pytransposer.doremi -v  
+
+## More info
+
+View on the Python Package Index (PyPI) [here](https://pypi.org/project/pytransposer/).
+
+View on GitHub [here](https://github.com/bfrangi/transposer/tree/package).
