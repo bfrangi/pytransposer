@@ -2,8 +2,8 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 [project]
-name = "pytranspose"
-version = "0.0.3"
+name = "pytransposer"
+version = "0.0.1"
 authors = [
   { name="bfrangi", email="bernat.frangi@gmail.com" },
 ]
