@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Test with doctest
+      - name: Test module with doctest
         run: |
           python3 -m src.pytranspose.transposer -v  
           python3 -m src.pytranspose.common -v  
