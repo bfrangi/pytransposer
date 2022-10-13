@@ -1,28 +1,28 @@
 import re
-from .common import sharp_flat
-key_list = [('A',), ('A#', 'Bb'), ('B',), ('C',), ('C#', 'Db'), ('D',),
-			('D#', 'Eb'), ('E',), ('F',), ('F#', 'Gb'), ('G',), ('G#', 'Ab')]
+from .common import sharp_flat, sharp, flat
+key_list = [('A',), ('A'+sharp, 'B'+flat), ('B',), ('C',), ('C'+sharp, 'D'+flat), ('D',),
+			('D'+sharp, 'E'+flat), ('E',), ('F',), ('F'+sharp, 'G'+flat), ('G',), ('G'+sharp, 'A'+flat)]
 abc = 'abc'
 sharp_flat_preferences = {
-	'A' : '#',
-	'A#': 'b',
-	'Bb': 'b',
-	'B' : '#',
-	'C' : 'b',
-	'C#': 'b',
-	'Db': 'b',
-	'D' : '#',
-	'D#': 'b',
-	'Eb': 'b',
-	'E' : '#',
-	'F' : 'b',
-	'F#': '#',
-	'Gb': '#',
-	'G' : '#',
-	'G#': 'b',
-	'Ab': 'b',
+	'A' : sharp,
+	'A'+sharp: flat,
+	'B'+flat: flat,
+	'B' : sharp,
+	'C' : flat,
+	'C'+sharp: flat,
+	'D'+flat: flat,
+	'D' : sharp,
+	'D'+sharp: flat,
+	'E'+flat: flat,
+	'E' : sharp,
+	'F' : flat,
+	'F'+sharp: sharp,
+	'G'+flat: sharp,
+	'G' : sharp,
+	'G'+sharp: flat,
+	'A'+flat: flat,
 	}
-key_regex_str = r"[ABCDEFG][#b]?"
+key_regex_str = r"[ABCDEFG][" + sharp + flat + r"]?"
 key_regex = re.compile(key_regex_str)
 
 def get_index_from_key(source_key):

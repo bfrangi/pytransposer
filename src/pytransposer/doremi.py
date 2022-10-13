@@ -1,28 +1,28 @@
 import re
-from .common import sharp_flat
-key_list = [('LA',), ('LA#', 'SIb'), ('SI',), ('DO',), ('DO#', 'REb'), ('RE',),
-			('RE#', 'MIb'), ('MI',), ('FA',), ('FA#', 'SOLb'), ('SOL',), ('SOL#', 'LAb')]
+from .common import sharp_flat, sharp, flat
+key_list = [('LA',), ('LA'+sharp, 'SI'+flat), ('SI',), ('DO',), ('DO'+sharp, 'RE'+flat), ('RE',),
+			('RE'+sharp, 'MI'+flat), ('MI',), ('FA',), ('FA'+sharp, 'SOL'+flat), ('SOL',), ('SOL'+sharp, 'LA'+flat)]
 doremi = 'doremi'
 sharp_flat_preferences = {
-	'LA' : '#',
-	'LA#': 'b',
-	'SIb': 'b',
-	'SI' : '#',
-	'DO' : 'b',
-	'DO#': 'b',
-	'REb': 'b',
-	'RE' : '#',
-	'RE#': 'b',
-	'MIb': 'b',
-	'MI' : '#',
-	'FA' : 'b',
-	'FA#': '#',
-	'SOLb': '#',
-	'SOL' : '#',
-	'SOL#': 'b',
-	'LAb': 'b',
+	'LA' : sharp,
+	'LA'+sharp: flat,
+	'SI'+flat: flat,
+	'SI' : sharp,
+	'DO' : flat,
+	'DO'+sharp: flat,
+	'RE'+flat: flat,
+	'RE' : sharp,
+	'RE'+sharp: flat,
+	'MI'+flat: flat,
+	'MI' : sharp,
+	'FA' : flat,
+	'FA'+sharp: sharp,
+	'SOL'+flat: sharp,
+	'SOL' : sharp,
+	'SOL'+sharp: flat,
+	'LA'+flat: flat,
 	}
-key_regex_str = r"(?:DO|RE|MI|FA|SOL|LA|SI|DO)[#b]?"
+key_regex_str = r"(?:DO|RE|MI|FA|SOL|LA|SI|DO)[" + sharp + flat + r"]?"
 key_regex = re.compile(key_regex_str)
 
 def get_index_from_key(source_key):
