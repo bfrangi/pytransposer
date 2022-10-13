@@ -2,7 +2,7 @@ import re
 from .common import sharp_flat
 key_list = [('A',), ('A#', 'Bb'), ('B',), ('C',), ('C#', 'Db'), ('D',),
 			('D#', 'Eb'), ('E',), ('F',), ('F#', 'Gb'), ('G',), ('G#', 'Ab')]
-
+abc = 'abc'
 sharp_flat_preferences = {
 	'A' : '#',
 	'A#': 'b',
@@ -22,8 +22,8 @@ sharp_flat_preferences = {
 	'G#': 'b',
 	'Ab': 'b',
 	}
-key_regex = re.compile(r"[ABCDEFG][#b]?")
-
+key_regex_str = r"[ABCDEFG][#b]?"
+key_regex = re.compile(key_regex_str)
 
 def get_index_from_key(source_key):
 	"""Gets the internal index of a key

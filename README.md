@@ -27,6 +27,17 @@ To translate chords between notations, use `pytransposer` like this:
     >>> chord_doremi_to_abc('DO#')
     'C#'
 
+To transpose a whole song, use `pytransposer` like this:
+
+    >>> transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3, 'F')
+	'Exa\[E/F]mple so\[Db4]ng'
+	
+	>>> transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3, 'F', chord_style_out='doremi')
+	'Exa\[MI/FA]mple so\[REb4]ng'
+	
+	>>> transpose_song('Exa<<DO#/RE>>mple so<<Bb4>>ng', 3, 'F', pre_chord=r'<<', post_chord=r'>>', chord_style_out='doremi')
+	'Exa<<MI/FA>>mple so<<REb4>>ng'
+
 
 ## Testing
 
@@ -49,3 +60,5 @@ This will run the tests for the main `transposer` sub-module. For the rest of th
 View on the Python Package Index (PyPI) [here](https://pypi.org/project/pytransposer/).
 
 View on GitHub [here](https://github.com/bfrangi/pytransposer/).
+
+View the change log [here](CHANGELOG.md).
