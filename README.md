@@ -38,6 +38,11 @@ To transpose a whole song, use `pytransposer` like this:
 	>>> transpose_song('Exa<<DO#/RE>>mple so<<Bb4>>ng', 3, 'F', pre_chord=r'<<', post_chord=r'>>', chord_style_out='doremi')
 	'Exa<<MI/FA>>mple so<<REb4>>ng'
 
+You can omit the `to_key` parameter to let the function auto-detect it from the first chord:
+	
+	>>> transpose_song('Exa\[RE]mple so\[Bb4]ng', 3)
+	'Exa\[F]mple so\[Db4]ng'
+
 
 ## Testing
 

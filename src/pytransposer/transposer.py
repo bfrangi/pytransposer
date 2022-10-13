@@ -17,22 +17,38 @@ from .common import (
 	is_abc,
 	is_doremi,
 	)
+chord_regex = re.compile(r"((?:" + key_regex_doremi + r")|(?:" + key_regex_abc + r"))")
 
-def transpose_song(song, direction, to_key, pre_chord=r'\\\[', post_chord=r'\]', chord_style_out=abc):
+def transpose_song(song, direction, to_key='auto', pre_chord=r'\\\[', post_chord=r'\]', chord_style_out=abc):
 	"""Transposes a song a number of half tones.
 	Sharp or flat of chords depends on target key.
 	
 	>>> transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3, 'F')
 	'Exa\\\\[E/F]mple so\\\\[Db4]ng'
+
+	You can also set the output notation style:
 	
 	>>> transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3, 'F', chord_style_out='doremi')
 	'Exa\\\\[MI/FA]mple so\\\\[REb4]ng'
+
+	You can pass custom `pre_chord` and `post_chord` 
+	regex patterns:
 	
 	>>> transpose_song('Exa<<DO#/RE>>mple so<<Bb4>>ng', 3, 'F', pre_chord=r'<<', post_chord=r'>>', chord_style_out='doremi')
 	'Exa<<MI/FA>>mple so<<REb4>>ng'
+
+	And you can omit the `to_key` parameter to let the
+	function auto-detect it from the first chord:
+	
+	>>> transpose_song('Exa\[RE]mple so\[Bb4]ng', 3)
+	'Exa\\\\[F]mple so\\\\[Db4]ng'
 	"""
-	chord_regex = re.compile(r'(' + pre_chord + r')((?:(?!' + post_chord + r').)*)(' + post_chord + r')')
-	song = chord_regex.sub(
+	chord_group_regex = re.compile(r'(' + pre_chord + r')((?:(?!' + post_chord + r').)*)(' + post_chord + r')')
+	if to_key == 'auto':
+		first_chord_group = chord_group_regex.findall(song)[0][1]
+		first_chord = chord_regex.findall(first_chord_group)[0]
+		to_key = transpose_chord(first_chord,direction,'D')
+	song = chord_group_regex.sub(
 		lambda m: m.group(1) + transpose_chord_group(m.group(2), direction, to_key, chord_style_out) + m.group(3),
 		song
 		)
@@ -49,7 +65,6 @@ def transpose_chord_group(line, direction, to_key, chord_style_out=abc):
 	>>> transpose_chord_group('DO#4/RE', 3, 'F', chord_style_out='doremi')
 	'MI4/FA'
 	"""
-	chord_regex = re.compile(r"((?:" + key_regex_doremi + r")|(?:" + key_regex_abc + r"))")
 	pos_difference = 0 
 	for match in chord_regex.finditer(line):
 		initial_pos = match.span()[0] + pos_difference
@@ -110,5 +125,6 @@ def transpose_chord(source_chord, direction, to_key, chord_style_out=abc):
 
 
 if __name__ == "__main__":
+	# transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3)
 	import doctest
 	doctest.testmod()
