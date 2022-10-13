@@ -1,35 +1,11 @@
-import re
-from .common import sharp_flat, sharp, flat
-key_list = [('A',), ('A'+sharp, 'B'+flat), ('B',), ('C',), ('C'+sharp, 'D'+flat), ('D',),
-			('D'+sharp, 'E'+flat), ('E',), ('F',), ('F'+sharp, 'G'+flat), ('G',), ('G'+sharp, 'A'+flat)]
-abc = 'abc'
-sharp_flat_preferences = {
-	'A' : sharp,
-	'A'+sharp: flat,
-	'B'+flat: flat,
-	'B' : sharp,
-	'C' : flat,
-	'C'+sharp: flat,
-	'D'+flat: flat,
-	'D' : sharp,
-	'D'+sharp: flat,
-	'E'+flat: flat,
-	'E' : sharp,
-	'F' : flat,
-	'F'+sharp: sharp,
-	'G'+flat: sharp,
-	'G' : sharp,
-	'G'+sharp: flat,
-	'A'+flat: flat,
-	}
-key_regex_str = r"[ABCDEFG][" + sharp + flat + r"]?"
-key_regex = re.compile(key_regex_str)
+from .config import transposer_config as config
 
 def get_index_from_key(source_key):
 	"""Gets the internal index of a key
 	>>> get_index_from_key('Bb')
 	1
 	"""
+	key_list = config.get_key_list_abc()
 	for key_names in key_list:
 		if source_key in key_names:
 			return key_list.index(key_names)
@@ -42,9 +18,11 @@ def get_key_from_index(index, to_key):
 	>>> get_key_from_index(1, 'Eb')
 	'Bb'
 	"""
+	key_list = config.get_key_list_abc()
 	key_names = key_list[index % len(key_list)]
+	sharp_flat_preferences = config.get_sharp_flat_preferences_abc()
 	if len(key_names) > 1:
-		sharp_or_flat = sharp_flat.index(sharp_flat_preferences[to_key])
+		sharp_or_flat = config.sharp_flat().index(sharp_flat_preferences[to_key])
 		return key_names[sharp_or_flat]
 	return key_names[0]
 

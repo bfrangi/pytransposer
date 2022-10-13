@@ -1,35 +1,11 @@
-import re
-from .common import sharp_flat, sharp, flat
-key_list = [('LA',), ('LA'+sharp, 'SI'+flat), ('SI',), ('DO',), ('DO'+sharp, 'RE'+flat), ('RE',),
-			('RE'+sharp, 'MI'+flat), ('MI',), ('FA',), ('FA'+sharp, 'SOL'+flat), ('SOL',), ('SOL'+sharp, 'LA'+flat)]
-doremi = 'doremi'
-sharp_flat_preferences = {
-	'LA' : sharp,
-	'LA'+sharp: flat,
-	'SI'+flat: flat,
-	'SI' : sharp,
-	'DO' : flat,
-	'DO'+sharp: flat,
-	'RE'+flat: flat,
-	'RE' : sharp,
-	'RE'+sharp: flat,
-	'MI'+flat: flat,
-	'MI' : sharp,
-	'FA' : flat,
-	'FA'+sharp: sharp,
-	'SOL'+flat: sharp,
-	'SOL' : sharp,
-	'SOL'+sharp: flat,
-	'LA'+flat: flat,
-	}
-key_regex_str = r"(?:DO|RE|MI|FA|SOL|LA|SI|DO)[" + sharp + flat + r"]?"
-key_regex = re.compile(key_regex_str)
+from .config import transposer_config as config
 
 def get_index_from_key(source_key):
 	"""Gets the internal index of a key
 	>>> get_index_from_key('SIb')
 	1
 	"""
+	key_list = config.get_key_list_doremi()
 	for key_names in key_list:
 		if source_key in key_names:
 			return key_list.index(key_names)
@@ -41,9 +17,11 @@ def get_key_from_index(index, to_key):
 	>>> get_key_from_index(1, 'MIb')
 	'SIb'
 	"""
+	key_list = config.get_key_list_doremi()
 	key_names = key_list[index % len(key_list)]
+	sharp_flat_preferences = config.get_sharp_flat_preferences_doremi()
 	if len(key_names) > 1:
-		sharp_or_flat = sharp_flat.index(sharp_flat_preferences[to_key])
+		sharp_or_flat = config.sharp_flat().index(sharp_flat_preferences[to_key])
 		return key_names[sharp_or_flat]
 	return key_names[0]
 

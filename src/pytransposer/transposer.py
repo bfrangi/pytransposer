@@ -2,14 +2,10 @@ import re
 from .abc import (
 	get_index_from_key as get_index_from_key_abc,
 	get_key_from_index as get_key_from_index_abc,
-	key_regex_str as key_regex_abc,
-	abc,
 	)
 from .doremi import (
 	get_index_from_key as get_index_from_key_doremi,
 	get_key_from_index as get_key_from_index_doremi,
-	key_regex_str as key_regex_doremi,
-	doremi,
 	)
 from .common import (
 	chord_doremi_to_abc,
@@ -17,9 +13,9 @@ from .common import (
 	is_abc,
 	is_doremi,
 	)
-chord_regex = re.compile(r"((?:" + key_regex_doremi + r")|(?:" + key_regex_abc + r"))")
+from .config import transposer_config as config
 
-def transpose_song(song, direction, to_key='auto', pre_chord=r'\\\[', post_chord=r'\]', chord_style_out=abc):
+def transpose_song(song, direction, to_key='auto', pre_chord=r'\\\[', post_chord=r'\]', chord_style_out=config.abc):
 	"""Transposes a song a number of half tones.
 	Sharp or flat of chords depends on target key.
 	
@@ -43,7 +39,7 @@ def transpose_song(song, direction, to_key='auto', pre_chord=r'\\\[', post_chord
 	>>> transpose_song('Exa\[RE]mple so\[Bb4]ng', 3)
 	'Exa\\\\[F]mple so\\\\[Db4]ng'
 	"""
-	chord_group_regex = re.compile(r'(' + pre_chord + r')((?:(?!' + post_chord + r').)*)(' + post_chord + r')')
+	chord_group_regex = config.get_chord_group_regex(pre_chord,post_chord)
 	if to_key == 'auto':
 		to_key = song_key(song, transpose=direction, pre_chord=pre_chord, post_chord=post_chord)
 	song = chord_group_regex.sub(
@@ -52,7 +48,7 @@ def transpose_song(song, direction, to_key='auto', pre_chord=r'\\\[', post_chord
 		)
 	return song
 
-def song_key(song, transpose=0, pre_chord=r'\\\[', post_chord=r'\]', chord_style_out=abc):
+def song_key(song, transpose=0, pre_chord=r'\\\[', post_chord=r'\]', chord_style_out=config.abc):
 	"""Gets the key of a song from its first chord and 
 	transposes it a number of half tones.
 	
@@ -72,11 +68,11 @@ def song_key(song, transpose=0, pre_chord=r'\\\[', post_chord=r'\]', chord_style
 	"""
 	chord_group_regex = re.compile(r'(' + pre_chord + r')((?:(?!' + post_chord + r').)*)(' + post_chord + r')')
 	first_chord_group = chord_group_regex.findall(song)[0][1]
-	first_chord = chord_regex.findall(first_chord_group)[0]
+	first_chord = config.get_chord_regex().findall(first_chord_group)[0]
 	key = transpose_chord(first_chord,transpose,'C', chord_style_out=chord_style_out)
 	return key
 
-def transpose_chord_group(line, direction, to_key, chord_style_out=abc):
+def transpose_chord_group(line, direction, to_key, chord_style_out=config.abc):
 	"""Transposes all chord matches in the string `line` 
 	a given number of half tones. Sharp or flat of 
 	chords depends on target key.
@@ -88,7 +84,7 @@ def transpose_chord_group(line, direction, to_key, chord_style_out=abc):
 	'MI4/FA'
 	"""
 	pos_difference = 0 
-	for match in chord_regex.finditer(line):
+	for match in config.get_chord_regex().finditer(line):
 		initial_pos = match.span()[0] + pos_difference
 		final_pos = match.span()[1] + pos_difference
 		chord = line[initial_pos:final_pos]
@@ -97,7 +93,7 @@ def transpose_chord_group(line, direction, to_key, chord_style_out=abc):
 		line = line[0:initial_pos] + transposed_chord + line[final_pos::]
 	return line
 
-def transpose_chord(source_chord, direction, to_key, chord_style_out=abc):
+def transpose_chord(source_chord, direction, to_key, chord_style_out=config.abc):
 	"""Transposes a chord a number of half tones.
 	Sharp or flat depends on target key.
 
@@ -122,7 +118,7 @@ def transpose_chord(source_chord, direction, to_key, chord_style_out=abc):
 			raise Exception("Invalid destination key: %s" % to_key)
 		source_index = get_index_from_key_abc(source_chord)
 		k = get_key_from_index_abc(source_index + direction, to_key)
-		chord_style_in = abc
+		chord_style_in = config.abc
 	elif is_doremi(source_chord):
 		if is_doremi(to_key):
 			pass
@@ -132,16 +128,16 @@ def transpose_chord(source_chord, direction, to_key, chord_style_out=abc):
 			raise Exception("Invalid destination key: %s" % to_key)
 		source_index = get_index_from_key_doremi(source_chord)
 		k = get_key_from_index_doremi(source_index + direction, to_key)
-		chord_style_in = doremi
+		chord_style_in = config.doremi
 		
 	else:
 		raise Exception("Invalid source chord: %s" % source_chord)
 
 	if chord_style_out == chord_style_in:
 		return k
-	elif chord_style_out == abc:
+	elif chord_style_out == config.abc:
 		return chord_doremi_to_abc(k)
-	elif chord_style_out == doremi:
+	elif chord_style_out == config.doremi:
 		return chord_abc_to_doremi(k)
 	raise Exception("Invalid output chord style: %s" % chord_style_out)
 

@@ -43,6 +43,19 @@ You can omit the `to_key` parameter to let the function auto-detect it from the 
 	>>> transpose_song('Exa\[RE]mple so\[Bb4]ng', 3)
 	'Exa\[F]mple so\[Db4]ng'
 
+## Settings
+
+If you use different symbols to represent sharps and flats, you can set them in the module's configuration like this:
+
+    >>> from pytransposer.config import TransposerConfig
+    >>> from pytransposer.transposer import transpose_song
+    >>> transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3, 'F')
+    'Exa\[E/F]mple so\[Db4]ng'
+    >>> TransposerConfig.sharp = 's'
+    >>> transpose_song('Exa\[DOs/RE]mple so\[Bb4]ng', 3, 'F')
+    'Exa\[E/F]mple so\[Db4]ng'
+
+However, be aware that not all symbols have been tested, and setting sharps and flats to some specific characters may lead to unexpected side effects. 
 
 ## Testing
 

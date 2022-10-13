@@ -1,7 +1,5 @@
 import re
-sharp = '#'
-flat = 'b'
-sharp_flat = [sharp, flat]
+from .config import transposer_config as config
 abc_to_doremi_dictionary = {
 	'A' : 'LA',
 	'B' : 'SI',
@@ -25,7 +23,7 @@ def is_abc(chord):
 	>>> is_abc('FA')
 	False
 	"""
-	return re.sub(r'[' + sharp + flat + r']', '', chord) in abc_to_doremi_dictionary
+	return re.sub(r'[' + config.sharp + config.flat + r']', '', chord) in abc_to_doremi_dictionary
 
 
 def is_doremi(chord):
@@ -37,7 +35,7 @@ def is_doremi(chord):
 	>>> is_doremi('FA')
 	True
 	"""
-	return re.sub(r'[' + sharp + flat + r']', '', chord) in doremi_to_abc_dictionary
+	return re.sub(r'[' + config.sharp + config.flat + r']', '', chord) in doremi_to_abc_dictionary
 
 
 def chord_style(chord):
@@ -49,12 +47,10 @@ def chord_style(chord):
 	>>> chord_style('FA')
 	'doremi'
 	"""
-	if is_abc(chord):
-		from .abc import abc	
-		return abc
+	if is_abc(chord):	
+		return config.abc
 	elif is_doremi(chord):
-		from .doremi import doremi
-		return doremi
+		return config.doremi
 	raise Exception("Invalid chord: %s" % chord)
 
 
@@ -64,8 +60,8 @@ def chord_doremi_to_abc(chord):
 	'Eb'
 	"""
 	if is_doremi(chord):
-		sharp_flat = re.findall(r'[' + sharp + flat + r']', chord)
-		clean_chord = re.sub(r'[' + sharp + flat + r']','', chord)
+		sharp_flat = re.findall(r'[' + config.sharp + config.flat + r']', chord)
+		clean_chord = re.sub(r'[' + config.sharp + config.flat + r']','', chord)
 		translated_chord = doremi_to_abc_dictionary[clean_chord]
 		for sf in sharp_flat:
 			translated_chord += sf
@@ -79,8 +75,8 @@ def chord_abc_to_doremi(chord):
 	'MIb'
 	"""
 	if is_abc(chord):
-		sharp_flat = re.findall(r'[' + sharp + flat + r']', chord)
-		clean_chord = re.sub(r'[' + sharp + flat + r']','', chord)
+		sharp_flat = re.findall(r'[' + config.sharp + config.flat + r']', chord)
+		clean_chord = re.sub(r'[' + config.sharp + config.flat + r']','', chord)
 		translated_chord = abc_to_doremi_dictionary[clean_chord]
 		for sf in sharp_flat:
 			translated_chord += sf
