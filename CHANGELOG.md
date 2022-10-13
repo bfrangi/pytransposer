@@ -6,13 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - No currently unreleased changes.
 
+## [1.1.2] - 2022-10-13
+### Changed
+- Moved the automatic detection of the `to_key` in `transpose_song` into a separate function `song_key`.
+- Add function `chord_style` to get the notation system of a given chord.
+- Fix minor bug.
+
+<!-- ### Changed
+### Removed -->
+
 ## [1.1.1] - 2022-10-13
 ### Changed
 - Made the `to_key` parameter optional in `tranpose_song` (if not given, it is automatically detected by using the first chord of the song).
 - Update [`README.md`](README.md).
-
-<!-- ### Changed
-### Removed -->
 
 ## [1.1.0] - 2022-10-13
 ### Added
@@ -27,8 +33,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-[Unreleased]: https://github.com/bfrangi/pytransposer/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/bfrangi/pytransposer/compare/v1.1.2...HEAD
 <!-- [1.1.2]: https://github.com/bfrangi/pytransposer/compare/v1.1.1...v1.1.2 -->
+[1.1.2]: https://github.com/bfrangi/pytransposer/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/bfrangi/pytransposer/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/bfrangi/pytransposer/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/bfrangi/pytransposer/releases/tag/v1.0.0 

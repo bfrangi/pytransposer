@@ -45,14 +45,36 @@ def transpose_song(song, direction, to_key='auto', pre_chord=r'\\\[', post_chord
 	"""
 	chord_group_regex = re.compile(r'(' + pre_chord + r')((?:(?!' + post_chord + r').)*)(' + post_chord + r')')
 	if to_key == 'auto':
-		first_chord_group = chord_group_regex.findall(song)[0][1]
-		first_chord = chord_regex.findall(first_chord_group)[0]
-		to_key = transpose_chord(first_chord,direction,'D')
+		to_key = song_key(song, transpose=direction, pre_chord=pre_chord, post_chord=post_chord)
 	song = chord_group_regex.sub(
 		lambda m: m.group(1) + transpose_chord_group(m.group(2), direction, to_key, chord_style_out) + m.group(3),
 		song
 		)
 	return song
+
+def song_key(song, transpose=0, pre_chord=r'\\\[', post_chord=r'\]', chord_style_out=abc):
+	"""Gets the key of a song from its first chord and 
+	transposes it a number of half tones.
+	
+	>>> song_key('Exa\[DO#/RE]mple so\[Bb4]ng')
+	'Db'
+
+	You can also set a number of half tones to transpose
+	the song key:
+	
+	>>> song_key('Exa\[DO#/RE]mple so\[Bb4]ng', 2)
+	'Eb'
+
+	And you can choose the notation style of the output:
+	
+	>>> song_key('Exa\[DO#/RE]mple so\[Bb4]ng', 3, chord_style_out='doremi')
+	'MI'
+	"""
+	chord_group_regex = re.compile(r'(' + pre_chord + r')((?:(?!' + post_chord + r').)*)(' + post_chord + r')')
+	first_chord_group = chord_group_regex.findall(song)[0][1]
+	first_chord = chord_regex.findall(first_chord_group)[0]
+	key = transpose_chord(first_chord,transpose,'C', chord_style_out=chord_style_out)
+	return key
 
 def transpose_chord_group(line, direction, to_key, chord_style_out=abc):
 	"""Transposes all chord matches in the string `line` 
@@ -125,6 +147,5 @@ def transpose_chord(source_chord, direction, to_key, chord_style_out=abc):
 
 
 if __name__ == "__main__":
-	# transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3)
 	import doctest
 	doctest.testmod()

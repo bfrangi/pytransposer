@@ -38,6 +38,24 @@ def is_doremi(chord):
 	return re.sub(r'[b\#]', '', chord) in doremi_to_abc_dictionary
 
 
+def chord_style(chord):
+	"""Returns the style of the a given chord.
+	Possible styles are A-B-C and DO-RE-MI.
+	>>> chord_style('Eb')
+	'abc'
+
+	>>> chord_style('FA')
+	'doremi'
+	"""
+	if is_abc(chord):
+		from .abc import abc	
+		return abc
+	elif is_doremi(chord):
+		from .doremi import doremi
+		return doremi
+	raise Exception("Invalid chord: %s" % chord)
+
+
 def chord_doremi_to_abc(chord):
 	"""Converts a chord from DO-RE-MI to A-B-C notation.
 	>>> chord_doremi_to_abc('MIb')
