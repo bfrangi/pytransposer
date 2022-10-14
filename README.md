@@ -3,83 +3,110 @@ PyTransposer
 
 [![Build Status](https://github.com/bfrangi/pytransposer/workflows/CI/badge.svg)](https://github.com/bfrangi/pytransposer/actions?query=workflow%3ACI)
 
-Transposing chords from one key to another and changing between DO-RE-MI and A-B-C notations.
+Python module for transposing chords and entire songs from one key to another and changing between DO-RE-MI and A-B-C notations.
 
 
 ## Usage
 
-### Single Chords
+### Transposing Single Chords
 
 To transpose single chords, use `pytransposer` like this:
 
-    >>> import pytransposer.transposer as tr
-    >>> tr.transpose_chord('Fb', 1, 'Db')
-    'F'
-    >>> tr.transpose_chord('F##', 1, 'C')
-    'Ab'
-    >>> tr.transpose_chord('F', 2, 'D', chord_style_out='doremi')
-    'SOL'
+```python
+>>> import pytransposer.transposer as tr
+>>> tr.transpose_chord('Fb', 1, 'Db')
+'F'
+>>> tr.transpose_chord('F##', 1, 'C')
+'Ab'
+>>> tr.transpose_chord('F', 2, 'D', chord_style_out='doremi')
+'SOL'
+```
 
 To translate chords between notations, use `pytransposer` like this:
 
-    >>> from pytransposer.common import chord_doremi_to_abc
-    >>> chord_doremi_to_abc('MIb')
-    'Eb'
-    >>> chord_doremi_to_abc('FA##')
-    'F##'
+```python
+>>> from pytransposer.common import chord_doremi_to_abc
+>>> chord_doremi_to_abc('MIb')
+'Eb'
+>>> chord_doremi_to_abc('FA##')
+'F##'
+```
+
 and:
 
-    >>> from pytransposer.common import chord_abc_to_doremi
-    >>> chord_abc_to_doremi('Eb')
-    'MIb'
-    >>> chord_abc_to_doremi('F##')
-    'FA##'
+```python
+>>> from pytransposer.common import chord_abc_to_doremi
+>>> chord_abc_to_doremi('Eb')
+'MIb'
+>>> chord_abc_to_doremi('F##')
+'FA##'
+```
+
+You can also use the method `pytransposer.express_chord_in_key` to express
+a general chord in a given key with musical correctness:
+
+```python
+>>> express_chord_in_key('DO#', 'D#')
+'C#'
+
+>>> express_chord_in_key('DO#', 'F', chord_style_out='doremi')
+'REb'
+```
 
 ### Transposing Songs
 
-To transpose a whole song expressing the chords in their simplest form, use `pytransposer` like this:
+Use the function `pytransposer.transpose_song` to transpose a whole song a number of half tones. You can set a target key through the `to_key` parameter so that the chords are expressed with musical correctness in that key:
 
-    >>> import pytransposer.transposer as tr
-    >>> tr.standardized_transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3)
-    'Exa\\[E/F]mple so\\[C#4]ng'
+```python
+>>> transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3, to_key='F')
+'Exa\\\\[E/F]mple so\\\\[Db4]ng'
+```
+
+If `to_key` is set to `'auto'`, the target key is determined automatically from the first chord of the song. 
+
+```python	
+>>> transpose_song('Exa\[RE]mple so\[Bb4]ng', 3, to_key='auto')
+'Exa\\\\[F]mple so\\\\[Db4]ng'
+```
+
+If it is left to its default value (`None`), no specific key is targeted. Instead, the chords are expressed in their 'reference' (simplest) form.
+
+```python	
+>>> transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3)
+'Exa\\\\[E/F]mple so\\\\[C#4]ng'
+```
 
 You can also set the output notation style:
 
-    >>> tr.standardized_transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3, chord_style_out='doremi')
-    'Exa\\[MI/FA]mple so\\[DO#4]ng'
 
-You can pass custom `pre_chord` and `post_chord` regex patterns to change the way in which you signal chords:
+```python
+>>> transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3, to_key='F', chord_style_out='doremi')
+'Exa\\\\[MI/FA]mple so\\\\[REb4]ng'
+```
 
-    >>> tr.standardized_transpose_song('Exa<<DO#/RE>>mple so<<Bb4>>ng', 3, pre_chord=r'<<', post_chord=r'>>', chord_style_out='doremi')
-    'Exa<<MI/FA>>mple so<<DO#4>>ng'
+And you can pass custom `pre_chord` and `post_chord` regex patterns to specify how you are identifying your chords:
 
-You can omit the `to_key` parameter to let the function auto-detect it from the first chord:
-	
-	>>> transpose_song('Exa\[RE]mple so\[Bb4]ng', 3)
-	'Exa\[F]mple so\[Db4]ng'
-
-### Transposing Songs to Specific Keys
-
-To transpose a whole song expressing the chords a specific musical key, use `pytransposer` like this:
-
-    >>> transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3, 'F')
-    'Exa\\[E/F]mple so\\[Db4]ng'
-
-You can also pass all the same parameters from the standardized methods to customize the behaviour of the transposer.
+```python
+>>> transpose_song('Exa<<DO#/RE>>mple so<<Bb4>>ng', 3, to_key='F', pre_chord=r'<<', post_chord=r'>>', chord_style_out='doremi')
+'Exa<<MI/FA>>mple so<<REb4>>ng'
+```
 
 ## Settings
 
 If you use different symbols to represent sharps and flats, you can set them in the module's configuration like this:
 
-    >>> from pytransposer.config import TransposerConfig
-    >>> from pytransposer.transposer import transpose_song
-    >>> transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3, 'F')
-    'Exa\[E/F]mple so\[Db4]ng'
-    >>> TransposerConfig.sharp = 's'
-    >>> transpose_song('Exa\[DOs/RE]mple so\[Bb4]ng', 3, 'F')
-    'Exa\[E/F]mple so\[Db4]ng'
+```python
+>>> from pytransposer.config import TransposerConfig
+>>> from pytransposer.transposer import transpose_song
+>>> transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3, 'F')
+'Exa\[E/F]mple so\[Db4]ng'
+>>> TransposerConfig.sharp = 's'
+>>> TransposerConfig.flat = '♭'
+>>> transpose_song('Exa\[DOs/RE]mple so\[B♭4]ng', 3, 'F')
+'Exa\[E/F]mple so\[D♭4]ng'
+```
 
-However, be aware that not all symbols have been tested, and setting sharps and flats to some specific characters may lead to unexpected side effects. 
+However, be aware that not all symbols have been tested, and setting sharps and flats to some specific characters may lead to unexpected side effects. In general, any character that is easily distinguishable from the chords should be fine.
 
 ## Example
 
@@ -89,18 +116,24 @@ You can see an example of the module's usage [here](example.py).
 
 Run unit tests using Python's `doctest`, first clone the repo:
 
-    git clone https://github.com/bfrangi/transposer.git
+```bash
+git clone https://github.com/bfrangi/transposer.git
+```
 
 Then, open a terminal at the root directory of the repo and run:
 
-    python3 -m src.pytransposer.transposer -v  
+```bash
+python3 -m src.pytransposer.transposer -v  
+```
 
 and
 
 This will run the tests for the main `transposer` sub-module. For the rest of the submodules, use:
 
-    python3 -m src.pytransposer.common -v
-    python3 -m src.pytransposer.config -v  
+```bash
+python3 -m src.pytransposer.common -v
+python3 -m src.pytransposer.config -v
+```
 
 ## More info
 

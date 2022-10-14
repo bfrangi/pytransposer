@@ -1,4 +1,3 @@
-import re
 from .config import transposer_config as config
 abc_to_doremi_dictionary = {
 	'A' : 'LA',
@@ -23,6 +22,7 @@ def is_abc(chord):
 	>>> is_abc('FA')
 	False
 	"""
+	import re
 	return re.sub(r'[' + config.sharp + config.flat + r']', '', chord) in abc_to_doremi_dictionary
 
 
@@ -35,6 +35,7 @@ def is_doremi(chord):
 	>>> is_doremi('FA')
 	True
 	"""
+	import re
 	return re.sub(r'[' + config.sharp + config.flat + r']', '', chord) in doremi_to_abc_dictionary
 
 
@@ -61,6 +62,7 @@ def chord_doremi_to_abc(chord):
 	>>> chord_doremi_to_abc('FA##')
 	'F##'
 	"""
+	import re
 	if is_doremi(chord):
 		sharp_flat = re.findall(r'[' + config.sharp + config.flat + r']', chord)
 		clean_chord = re.sub(r'[' + config.sharp + config.flat + r']','', chord)
@@ -78,6 +80,7 @@ def chord_abc_to_doremi(chord):
 	>>> chord_abc_to_doremi('F##')
 	'FA##'
 	"""
+	import re
 	if is_abc(chord):
 		sharp_flat = re.findall(r'[' + config.sharp + config.flat + r']', chord)
 		clean_chord = re.sub(r'[' + config.sharp + config.flat + r']','', chord)

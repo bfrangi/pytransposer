@@ -24,7 +24,7 @@ class TransposerConfig():
 	def sharp_flat(self):
 		return [self.sharp, self.flat]
 	
-	def standard_abc_keys(self):
+	def reference_abc_keys(self):
 		return [
 			'C', 
 			'C'+self.sharp, 
@@ -40,7 +40,7 @@ class TransposerConfig():
 			'B'
 			]
 	
-	def standard_doremi_keys(self):
+	def reference_doremi_keys(self):
 		return [
 			'DO', 
 			'DO'+self.sharp, 
@@ -58,7 +58,7 @@ class TransposerConfig():
 	
 	# STANDARDIZING KEYS/CHORDS
 
-	def key_to_standard_abc(self, key):
+	def key_to_reference_abc(self, key):
 		keys = {
 			'C':'C',
 			'D':'D',
@@ -105,7 +105,7 @@ class TransposerConfig():
 		except:
 			raise Exception("Invalid key: %s" % key)
 	
-	def key_to_standard_doremi(self, key):
+	def key_to_reference_doremi(self, key):
 		keys = {
 			'DO':'DO',
 			'RE':'RE',
@@ -152,12 +152,12 @@ class TransposerConfig():
 		except:
 			raise Exception("Invalid key: %s" % key)
 
-	def key_to_standard(self, key):
+	def key_to_reference(self, key):
 		from .common import is_abc, is_doremi
 		if is_abc(key):
-			return self.key_to_standard_abc(key)
+			return self.key_to_reference_abc(key)
 		elif is_doremi(key):
-			return self.key_to_standard_doremi(key)
+			return self.key_to_reference_doremi(key)
 		raise Exception("Invalid key: %s" % key)
 
 	# SCALES

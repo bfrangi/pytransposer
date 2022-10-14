@@ -3,17 +3,20 @@
 All notable changes to the `pytransposer` extension will be documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+---
 ## [Unreleased]
+---
 ### Changed
 - No unreleased changes.
 
-
+---
 ## [1.2.0] - 2022-10-14
+---
 ### Added
 - Module configuration class `TransposerConfig` in a new sub-module `config`. This holds module-wide configurations that the user can modify.
+- Added function (`express_chord_in_key`) to express a general chord in a given key.
 ### Changed
-- Changed the `transpose_chord`, `transpose_chord_group` and `transpose_song` methods to always return musicaly correct chords taking into account the `to_key` given by the user or obtained from the first chord of the song.
-- Added `standardized_transpose_chord`, `standardized_transpose_chord_group` and `standardized_transpose_song` methods to always return the simplest chord representations, without taking into account any `to_key` whatsoever.
+- Changed the `transpose_chord`, `transpose_chord_group` and `transpose_song` methods to express chords differently depending on the `to_key` parameter: if a target chord is given, chords are expressed in the most musically correct way with respect to the given key; if `'auto'` is given, the target key is automatically determined; and if `None` is given (this is the default), the chords are expressed in their simplest form.
 - Changed the algorithm used to transpose chords.
 - Update [`README.md`](README.md).
 ### Removed
@@ -22,24 +25,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <!-- ### Changed
 ### Removed -->
 
+---
 ## [1.1.2] - 2022-10-13
+---
 ### Changed
 - Moved the automatic detection of the `to_key` in `transpose_song` into a separate function `song_key`.
 - Add function `chord_style` to get the notation system of a given chord.
 - Fix minor bug.
 
+---
 ## [1.1.1] - 2022-10-13
+---
 ### Changed
 - Made the `to_key` parameter optional in `tranpose_song` (if not given, it is automatically detected by using the first chord of the song).
 - Update [`README.md`](README.md).
 
+---
 ## [1.1.0] - 2022-10-13
+---
 ### Added
 - Function to transpose whole songs.
 - This [`CHANGELOG.md`](CHANGELOG.md) to keep track of changes.
 
 
+---
 ## [1.0.0] - 2022-10-13
+---
 ### Added
 - Initial version of the python package created by [@bfrangi](https://github.com/bfrangi/) and based on the python [`transposer`](https://github.com/davidparsson/transposer) tool by [@davidparsson](https://github.com/davidparsson).
 - [`README.md`](README.md) with examples regarding the usage of the package.
