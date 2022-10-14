@@ -20,5 +20,3 @@ jobs:
         run: |
           python3 -m src.pytransposer.transposer -v  
           python3 -m src.pytransposer.common -v  
-          python3 -m src.pytransposer.abc -v  
-          python3 -m src.pytransposer.doremi -v

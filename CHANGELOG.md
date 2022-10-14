@@ -4,16 +4,29 @@ All notable changes to the `pytransposer` extension will be documented in this f
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- No currently unreleased changes.
+### Changed
+- No unreleased changes.
+
+
+## [1.2.0] - 2022-10-14
+### Added
+- Module configuration class `TransposerConfig` in a new sub-module `config`. This holds module-wide configurations that the user can modify.
+### Changed
+- Changed the `transpose_chord`, `transpose_chord_group` and `transpose_song` methods to always return musicaly correct chords taking into account the `to_key` given by the user or obtained from the first chord of the song.
+- Added `standardized_transpose_chord`, `standardized_transpose_chord_group` and `standardized_transpose_song` methods to always return the simplest chord representations, without taking into account any `to_key` whatsoever.
+- Changed the algorithm used to transpose chords.
+- Update [`README.md`](README.md).
+### Removed
+- Sub-modules `abc.py` and `doremi.py` and all methods within them (old methods from the previously used transposing algorithm)
+  
+<!-- ### Changed
+### Removed -->
 
 ## [1.1.2] - 2022-10-13
 ### Changed
 - Moved the automatic detection of the `to_key` in `transpose_song` into a separate function `song_key`.
 - Add function `chord_style` to get the notation system of a given chord.
 - Fix minor bug.
-
-<!-- ### Changed
-### Removed -->
 
 ## [1.1.1] - 2022-10-13
 ### Changed
@@ -33,8 +46,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-[Unreleased]: https://github.com/bfrangi/pytransposer/compare/v1.1.2...HEAD
+[Unreleased]: https://github.com/bfrangi/pytransposer/compare/v1.2.0...HEAD
 <!-- [1.1.2]: https://github.com/bfrangi/pytransposer/compare/v1.1.1...v1.1.2 -->
+[1.2.0]: https://github.com/bfrangi/pytransposer/compare/v1.1.2...v1.2.0
 [1.1.2]: https://github.com/bfrangi/pytransposer/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/bfrangi/pytransposer/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/bfrangi/pytransposer/compare/v1.0.0...v1.1.0

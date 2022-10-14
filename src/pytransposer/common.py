@@ -58,6 +58,8 @@ def chord_doremi_to_abc(chord):
 	"""Converts a chord from DO-RE-MI to A-B-C notation.
 	>>> chord_doremi_to_abc('MIb')
 	'Eb'
+	>>> chord_doremi_to_abc('FA##')
+	'F##'
 	"""
 	if is_doremi(chord):
 		sharp_flat = re.findall(r'[' + config.sharp + config.flat + r']', chord)
@@ -73,6 +75,8 @@ def chord_abc_to_doremi(chord):
 	"""Converts a chord from A-B-C to DO-RE-MI notation.
 	>>> chord_abc_to_doremi('Eb')
 	'MIb'
+	>>> chord_abc_to_doremi('F##')
+	'FA##'
 	"""
 	if is_abc(chord):
 		sharp_flat = re.findall(r'[' + config.sharp + config.flat + r']', chord)
@@ -82,6 +86,26 @@ def chord_abc_to_doremi(chord):
 			translated_chord += sf
 		return translated_chord
 	raise Exception("Invalid chord: %s" % chord)
+
+
+def chord_to_chord_style(chord, chord_style_out=config.abc):
+	"""Converts a chord from any notation to a chosen
+	notation (either A-B-C or DO-RE-MI).
+	>>> chord_to_chord_style('Eb', 'doremi')
+	'MIb'
+	>>> chord_to_chord_style('G', 'abc')
+	'G'
+	>>> chord_to_chord_style('DO', 'doremi')
+	'DO'
+	"""
+	if chord_style_out == chord_style(chord):
+		return chord
+	elif chord_style_out == config.abc:
+		return chord_doremi_to_abc(chord)
+	elif chord_style_out == config.doremi:
+		return chord_abc_to_doremi(chord)
+	raise Exception("Invalid output chord style: %s" % chord_style_out)
+
 
 if __name__ == "__main__":
     import doctest
