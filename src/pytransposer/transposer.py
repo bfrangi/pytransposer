@@ -108,18 +108,21 @@ def express_chord_in_key(chord, key, chord_style_out=config.abc):
 
 	>>> express_chord_in_key('DO#', 'F', chord_style_out='doremi')
 	'REb'
+
+	>>> express_chord_in_key('SI', 'SOL#', 'doremi')
+	'SI'
 	"""
 	from .common import chord_to_chord_style
 	key = chord_to_chord_style(key, chord_style_out)
 	chord = chord_to_chord_style(chord, chord_style_out)
-	from .common import is_abc, is_doremi
-	if is_abc(chord):
+	if chord_style_out == config.abc:
 		reference_keys = config.reference_abc_keys()
-	elif is_doremi(chord):
+	elif chord_style_out == config.doremi:
 		reference_keys = config.reference_doremi_keys()
 	else:
 		raise Exception("Invalid chord: %s" % chord)
-	return config.key_chords(key)[reference_keys.index(chord)]
+	idx = reference_keys.index(chord)
+	return config.key_chords(key)[idx]
 
 
 def transpose_chord_group(line, half_tones, to_key=None, chord_style_out=config.abc):

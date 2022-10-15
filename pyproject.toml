@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 [project]
 name = "pytransposer"
-version = "1.2.0"
+version = "1.2.1"
 authors = [
   { name="bfrangi", email="bernat.frangi@gmail.com" },
 ]

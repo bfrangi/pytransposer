@@ -165,7 +165,7 @@ class TransposerConfig():
 	def key_chords_abc(self, key):
 		keys = {'C': ['C', 'C'+self.sharp, 'D', 'E'+self.flat, 'E', 'F', 'F'+self.sharp, 'G', 'A'+self.flat, 'A', 'B'+self.flat, 'B'],
 			'C'+self.sharp: ['B'+self.sharp, 'C'+self.sharp, 'D', 'D'+self.sharp, 'E', 'E'+self.sharp, 'F'+self.sharp, 'G', 'G'+self.sharp, 'A', 'A'+self.sharp, 'B'],
-			'D'+self.flat: ['C', 'D'+self.flat, 'D', 'E'+self.flat, 'F'+self.flat, 'F', 'G'+self.flat, 'G', 'A'+self.flat, 'B'+self.flat+self.flat, 'C'+self.flat],
+			'D'+self.flat: ['C', 'D'+self.flat, 'D', 'E'+self.flat, 'F'+self.flat, 'F', 'G'+self.flat, 'G', 'A'+self.flat, 'B'+self.flat+self.flat, 'B'+self.flat, 'C'+self.flat],
 			'D': ['C', 'C'+self.sharp, 'D', 'E'+self.flat, 'E', 'F', 'F'+self.sharp, 'G', 'G'+self.sharp, 'A', 'B'+self.flat, 'B'],
 			'D'+self.sharp: ['B'+self.sharp, 'C'+self.sharp, 'C'+self.sharp+self.sharp, 'D'+self.sharp, 'E', 'E'+self.sharp, 'F'+self.sharp, 'F'+self.sharp+self.sharp, 'G'+self.sharp, 'A', 'A'+self.sharp, 'B'],
 			'E'+self.flat: ['C', 'D'+self.flat, 'D', 'E'+self.flat, 'E', 'F', 'G'+self.flat, 'G', 'A'+self.flat, 'A', 'B'+self.flat, 'C'+self.flat],
@@ -174,7 +174,7 @@ class TransposerConfig():
 			'F'+self.sharp: ['C', 'C'+self.sharp, 'D', 'D'+self.sharp, 'E', 'E'+self.sharp, 'F'+self.sharp, 'G', 'G'+self.sharp, 'A', 'A'+self.sharp, 'B'],
 			'G'+self.flat: ['C', 'D'+self.flat, 'E'+self.flat+self.flat, 'E'+self.flat, 'F'+self.flat, 'F', 'G'+self.flat, 'G', 'A'+self.flat, 'B'+self.flat+self.flat, 'B'+self.flat, 'C'+self.flat],
 			'G': ['C', 'C'+self.sharp, 'D', 'E'+self.flat, 'E', 'F', 'F'+self.sharp, 'G', 'G'+self.sharp, 'A', 'B'+self.flat, 'B'],
-			'G'+self.sharp: ['B'+self.sharp, 'C'+self.sharp, 'D', 'D'+self.sharp, 'E', 'E'+self.sharp, 'F'+self.sharp+self.sharp, 'G'+self.sharp, 'A', 'A'+self.sharp, 'B'],
+			'G'+self.sharp: ['B'+self.sharp, 'C'+self.sharp, 'D', 'D'+self.sharp, 'E', 'E'+self.sharp, 'F'+self.sharp,'F'+self.sharp+self.sharp, 'G'+self.sharp, 'A', 'A'+self.sharp, 'B'],
 			'A'+self.flat: ['C', 'D'+self.flat, 'D', 'E'+self.flat, 'F'+self.flat, 'F', 'G'+self.flat, 'G', 'A'+self.flat, 'A', 'B'+self.flat, 'C'+self.flat],
 			'A': ['C', 'C'+self.sharp, 'D', 'D'+self.sharp, 'E', 'F', 'F'+self.sharp, 'G', 'G'+self.sharp, 'A', 'A'+self.sharp, 'B'],
 			'A'+self.sharp: ['B'+self.sharp, 'C'+self.sharp, 'C'+self.sharp+self.sharp, 'D'+self.sharp, 'E', 'E'+self.sharp, 'F'+self.sharp, 'F'+self.sharp+self.sharp, 'G'+self.sharp, 'G'+self.sharp+self.sharp, 'A'+self.sharp, 'B'],
