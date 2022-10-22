@@ -5,7 +5,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
-- No unreleased changes.
+- Fixed bug in `pytransposer.transposer.song_key` when the song has no chords.
 
 ## [1.2.1] - 2022-10-15
 ### Changed

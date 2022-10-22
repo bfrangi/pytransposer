@@ -27,11 +27,20 @@ def song_key(song, half_tones=0, pre_chord=r'\\\[', post_chord=r'\]', chord_styl
 
 	>>> song_key('Exa\[F]mple so\[Bb4]ng', 2, chord_style_out='doremi')
 	'SOL'
+
+	If the song has no chords, `None` is returned:
+
+	>>> song_key('Example song', 2, chord_style_out='doremi') is None
+	True
 	"""
 	import re
 	chord_group_regex = re.compile(
 		r'(' + pre_chord + r')((?:(?!' + post_chord + r').)*)(' + post_chord + r')')
-	first_chord_group = chord_group_regex.findall(song)[0][1]
+	
+	first_chord_group = chord_group_regex.findall(song)
+	if not len(first_chord_group) > 0:
+		return 
+	first_chord_group = first_chord_group[0][1]
 	first_chord = config.get_chord_regex().findall(first_chord_group)[0]
 	reference_key = config.key_to_reference(first_chord)
 
