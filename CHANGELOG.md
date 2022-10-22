@@ -5,7 +5,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
+- No unreleased changes.
+  
+## [1.2.2] - 2022-10-22
+### Changed
 - Fixed bug in `pytransposer.transposer.song_key` when the song has no chords.
+
 
 ## [1.2.1] - 2022-10-15
 ### Changed
@@ -49,8 +54,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-[Unreleased]: https://github.com/bfrangi/pytransposer/compare/v1.2.1...HEAD
-<!-- [1.1.2]: https://github.com/bfrangi/pytransposer/compare/v1.1.1...v1.1.2 -->
+[Unreleased]: https://github.com/bfrangi/pytransposer/compare/v1.2.2...HEAD
+[1.2.2]: https://github.com/bfrangi/pytransposer/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/bfrangi/pytransposer/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/bfrangi/pytransposer/compare/v1.1.2...v1.2.0
 [1.1.2]: https://github.com/bfrangi/pytransposer/compare/v1.1.1...v1.1.2
