@@ -1,7 +1,7 @@
 PyTransposer 
 ==========
 
-[![Build Status](https://github.com/bfrangi/pytransposer/workflows/CI/badge.svg)](https://github.com/bfrangi/pytransposer/actions?query=workflow%3ACI)
+[![Build Status](https://github.com/bfrangi/pytransposer/workflows/CI/badge.svg)](https://github.com/bfrangi/pytransposer/actions?query=workflow%3ACI) [![Downloads](https://img.shields.io/pypi/dm/pytransposer?color=brightgreen&label=PyPI%20Downloads)](https://pypi.org/project/pytransposer/) 
 
 Python module for transposing chords and entire songs from one key to another and changing between DO-RE-MI and A-B-C notations.
 
