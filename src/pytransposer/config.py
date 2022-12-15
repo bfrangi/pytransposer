@@ -200,5 +200,4 @@ class TransposerConfig():
 			return self.key_chords_doremi(key)
 		raise Exception("Invalid key: %s" % key)
 
-
 transposer_config = TransposerConfig()

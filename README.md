@@ -5,6 +5,12 @@ PyTransposer
 
 Python module for transposing chords and entire songs from one key to another and changing between DO-RE-MI and A-B-C notations.
 
+## Features
+
+- Transpose chords and whole songs 
+- Change chords and entire songs between DO-RE-MI and A-B-C notations
+- Output chords/song following a specific target key
+- Change target key part-way through a song
 
 ## Usage
 
@@ -59,21 +65,21 @@ Use the function `pytransposer.transpose_song` to transpose a whole song a numbe
 
 ```python
 >>> transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3, to_key='F')
-'Exa\\\\[E/F]mple so\\\\[Db4]ng'
+'Exa\[E/F]mple so\[Db4]ng'
 ```
 
 If `to_key` is set to `'auto'`, the target key is determined automatically from the first chord of the song. 
 
 ```python	
 >>> transpose_song('Exa\[RE]mple so\[Bb4]ng', 3, to_key='auto')
-'Exa\\\\[F]mple so\\\\[Db4]ng'
+'Exa\[F]mple so\[Db4]ng'
 ```
 
 If it is left to its default value (`None`), no specific key is targeted. Instead, the chords are expressed in their 'reference' (simplest) form.
 
 ```python	
 >>> transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3)
-'Exa\\\\[E/F]mple so\\\\[C#4]ng'
+'Exa\[E/F]mple so\[C#4]ng'
 ```
 
 You can also set the output notation style:
@@ -81,7 +87,7 @@ You can also set the output notation style:
 
 ```python
 >>> transpose_song('Exa\[DO#/RE]mple so\[Bb4]ng', 3, to_key='F', chord_style_out='doremi')
-'Exa\\\\[MI/FA]mple so\\\\[REb4]ng'
+'Exa\[MI/FA]mple so\[REb4]ng'
 ```
 
 And you can pass custom `pre_chord` and `post_chord` regex patterns to specify how you are identifying your chords:
@@ -90,6 +96,29 @@ And you can pass custom `pre_chord` and `post_chord` regex patterns to specify h
 >>> transpose_song('Exa<<DO#/RE>>mple so<<Bb4>>ng', 3, to_key='F', pre_chord=r'<<', post_chord=r'>>', chord_style_out='doremi')
 'Exa<<MI/FA>>mple so<<REb4>>ng'
 ```
+
+The target `to_key` can also be changed at any point in the song by adding `\key{<to_key>}` whenever it should be changed (for example, `\key{DO}` or `\key{D#}`).
+
+```python
+>>> transpose_song('Thi\[C]s is \key{D##}an e\[A]xample \[C]song', 3)
+	'Thi\[D#]s is an e\[C]xample \[Eb]song'
+```
+
+You can change `pre_key` and `post_key` to change the way that the key changes are indicated:
+
+```python
+>>> transpose_song('Thi\[C]s is \|D##|an e\[A]xample \[C]song', 3, pre_key=r'\\\|', post_key=r'\|')
+	'Thi\[D#]s is an e\[C]xample \[Eb]song'
+```	
+
+By default, the function removes the key change signalling strings. You can avoid this behaviour by setting `clean_key_change_signals`
+to `False`. 
+
+```python
+>>> transpose_song('Thi\[C]s is \key{D##}an e\[A]xample \[C]song', 3, clean_key_change_signals=False)
+'Thi\[D#]s is \key{G}an e\[C]xample \[Eb]song'
+```
+	
 
 ## Settings
 
