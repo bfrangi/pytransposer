@@ -34,7 +34,7 @@ class TransposerConfig():
 			'F', 
 			'F'+self.sharp, 
 			'G', 
-			'G'+self.sharp, 
+			'A'+self.flat, 
 			'A', 
 			'B'+self.flat, 
 			'B'
@@ -50,7 +50,7 @@ class TransposerConfig():
 			'FA', 
 			'FA'+self.sharp, 
 			'SOL', 
-			'SOL'+self.sharp, 
+			'LA'+self.flat, 
 			'LA', 
 			'SI'+self.flat, 
 			'SI'
@@ -72,7 +72,7 @@ class TransposerConfig():
 			'D'+self.sharp:'E'+self.flat,
 			'E'+self.sharp:'F',
 			'F'+self.sharp:'F'+self.sharp,
-			'G'+self.sharp:'G'+self.sharp,
+			'G'+self.sharp:'A'+self.flat,
 			'A'+self.sharp:'B'+self.flat,
 			'B'+self.sharp:'C',
 
@@ -81,7 +81,7 @@ class TransposerConfig():
 			'E'+self.flat:'E'+self.flat,
 			'F'+self.flat:'E',
 			'G'+self.flat:'F'+self.sharp,
-			'A'+self.flat:'G'+self.sharp,
+			'A'+self.flat:'A'+self.flat,
 			'B'+self.flat:'B'+self.flat,
 
 			'C'+self.sharp+self.sharp:'D',
@@ -119,7 +119,7 @@ class TransposerConfig():
 			'RE'+self.sharp:'MI'+self.flat,
 			'MI'+self.sharp:'FA',
 			'FA'+self.sharp:'FA'+self.sharp,
-			'SOL'+self.sharp:'SOL'+self.sharp,
+			'SOL'+self.sharp:'LA'+self.flat,
 			'LA'+self.sharp:'SI'+self.flat,
 			'SI'+self.sharp:'DO',
 
@@ -128,7 +128,7 @@ class TransposerConfig():
 			'MI'+self.flat:'MI'+self.flat,
 			'FA'+self.flat:'MI',
 			'SOL'+self.flat:'FA'+self.sharp,
-			'LA'+self.flat:'SOL'+self.sharp,
+			'LA'+self.flat:'LA'+self.flat,
 			'SI'+self.flat:'SI'+self.flat,
 
 			'DO'+self.sharp+self.sharp:'RE',

@@ -82,7 +82,7 @@ def transpose_chord(chord, half_tones, to_key=None, chord_style_out=config.abc):
 	'F'
 
 	>>> transpose_chord('F##', 1)
-	'G#'
+	'Ab'
 
 	>>> transpose_chord('F', 2, chord_style_out='doremi')
 	'SOL'
@@ -328,27 +328,27 @@ def transpose_song(song, half_tones=0, to_key=None, pre_chord=r'\\\[', post_chor
 	You can change the target key at any point by adding 
 	`\key{<to_key>}` within the song:
 
-	>>> transpose_song('Thi\[C]s is \key{D##}an e\[A]xample \[C]song', 3)
-	'Thi\\\\[D#]s is an e\\\\[C]xample \\\\[Eb]song'
+	>>> transpose_song('Thi\[F#]s is \key{Eb}an e\[A]xample \[F#]song')
+	'Thi\\\\[F#]s is an e\\\\[A]xample \\\\[Gb]song'
 
 	You can change `pre_key` and `post_key` to change the way that the
 	key changes are indicated:
 
-	>>> transpose_song('Thi\[C]s is \|D##|an e\[A]xample \[C]song', 3, pre_key=r'\\\\\|', post_key=r'\|')
-	'Thi\\\\[D#]s is an e\\\\[C]xample \\\\[Eb]song'
+	>>> transpose_song('Thi\[F#]s is \|Eb|an e\[A]xample \[F#]song', 5, pre_key=r'\\\\\|', post_key=r'\|')
+	'Thi\\\\[B]s is an e\\\\[D]xample \\\\[Cb]song'
 	
 	By default, the function removes the key change signalling strings.
 	You can avoid this behaviour by setting `clean_key_change_signals`
 	to `False`. 
 
-	>>> transpose_song('Thi\[C]s is \key{D##}an e\[A]xample \[C]song', 3, clean_key_change_signals=False)
-	'Thi\\\\[D#]s is \\\\key{G}an e\\\\[C]xample \\\\[Eb]song'
+	>>> transpose_song('Thi\[F#]s is \key{Eb}an e\[A]xample \[F#]song', 5, clean_key_change_signals=False)
+	'Thi\\\\[B]s is \\\\key{Ab}an e\\\\[D]xample \\\\[Cb]song'
 	"""
-	# Get auto to_key
+	# Get auto to_key without transposing it
 	chord_group_regex = config.get_chord_group_regex(pre_chord, post_chord)
-	auto_to_key = song_key(
+	auto_to_key_no_transpose = song_key(
 		song,
-		half_tones=half_tones,
+		half_tones=0,
 		pre_chord=pre_chord,
 		post_chord=post_chord,
 		chord_style_out=chord_style_out,
@@ -356,7 +356,7 @@ def transpose_song(song, half_tones=0, to_key=None, pre_chord=r'\\\[', post_chor
 	# Process songs with changes in key
 	song_segments = song_key_segments(
 		song, 
-		to_key=auto_to_key, 
+		to_key=auto_to_key_no_transpose, 
 		half_tones=half_tones,
 		clean=clean_key_change_signals,
 		chord_style_out=chord_style_out, 
@@ -377,7 +377,13 @@ def transpose_song(song, half_tones=0, to_key=None, pre_chord=r'\\\[', post_chor
 		])
 	
 	if to_key in ['auto']:
-		to_key = auto_to_key
+		to_key = song_key(
+			song,
+			half_tones=half_tones,
+			pre_chord=pre_chord,
+			post_chord=post_chord,
+			chord_style_out=chord_style_out,
+		)
 	
 	return chord_group_regex.sub(
 		lambda m: m.group(1) + transpose_chord_group(m.group(2),

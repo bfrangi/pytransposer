@@ -100,23 +100,24 @@ And you can pass custom `pre_chord` and `post_chord` regex patterns to specify h
 The target `to_key` can also be changed at any point in the song by adding `\key{<to_key>}` whenever it should be changed (for example, `\key{DO}` or `\key{D#}`).
 
 ```python
->>> transpose_song('Thi\[C]s is \key{D##}an e\[A]xample \[C]song', 3)
-	'Thi\[D#]s is an e\[C]xample \[Eb]song'
+>>> transpose_song('Thi\[F#]s is \key{Eb}an e\[A]xample \[F#]song')
+	'Thi\[F#]s is an e\[A]xample \[Gb]song'
 ```
 
 You can change `pre_key` and `post_key` to change the way that the key changes are indicated:
 
 ```python
->>> transpose_song('Thi\[C]s is \|D##|an e\[A]xample \[C]song', 3, pre_key=r'\\\|', post_key=r'\|')
-	'Thi\[D#]s is an e\[C]xample \[Eb]song'
+>>> transpose_song('Thi\[F#]s is \|Eb|an e\[A]xample \[F#]song', 5, pre_key=r'\\|', post_key=r'\|')
+	'Thi\[B]s is an e\[D]xample \[Cb]song'
+	
 ```	
 
 By default, the function removes the key change signalling strings. You can avoid this behaviour by setting `clean_key_change_signals`
 to `False`. 
 
 ```python
->>> transpose_song('Thi\[C]s is \key{D##}an e\[A]xample \[C]song', 3, clean_key_change_signals=False)
-'Thi\[D#]s is \key{G}an e\[C]xample \[Eb]song'
+>>> transpose_song('Thi\[F#]s is \key{Eb}an e\[A]xample \[F#]song', 5, clean_key_change_signals=False)
+	'Thi\[B]s is \key{Ab}an e\[D]xample \[Cb]song'
 ```
 	
 
