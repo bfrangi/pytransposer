@@ -82,7 +82,7 @@ def transpose_chord(chord, half_tones, to_key=None, chord_style_out=config.abc):
 	'F'
 
 	>>> transpose_chord('F##', 1)
-	'Ab'
+	'G#'
 
 	>>> transpose_chord('F', 2, chord_style_out='doremi')
 	'SOL'
@@ -326,23 +326,26 @@ def transpose_song(song, half_tones=0, to_key=None, pre_chord=r'\\\[', post_chor
 	'Exa\\\\[E/F]mple so\\\\[C#4]ng'
 
 	You can change the target key at any point by adding 
-	`\key{<to_key>}` within the song:
+	`\key{<to_key>}` or `\key{<half_tones>}` within the song:
 
 	>>> transpose_song('Thi\[F#]s is \key{Eb}an e\[A]xample \[F#]song')
+	'Thi\\\\[F#]s is an e\\\\[A]xample \\\\[Gb]song'
+
+	>>> transpose_song('Thi\[F#]s is \key{-3}an e\[A]xample \[F#]song')
 	'Thi\\\\[F#]s is an e\\\\[A]xample \\\\[Gb]song'
 
 	You can change `pre_key` and `post_key` to change the way that the
 	key changes are indicated:
 
-	>>> transpose_song('Thi\[F#]s is \|Eb|an e\[A]xample \[F#]song', 5, pre_key=r'\\\\\|', post_key=r'\|')
-	'Thi\\\\[B]s is an e\\\\[D]xample \\\\[Cb]song'
+	>>> transpose_song('Thi\[F#]s is \|Eb|an e\[A]xample \[F#]song', 7, pre_key=r'\\\\\|', post_key=r'\|')
+	'Thi\\\\[C#]s is an e\\\\[E]xample \\\\[Db]song'
 	
 	By default, the function removes the key change signalling strings.
 	You can avoid this behaviour by setting `clean_key_change_signals`
 	to `False`. 
 
-	>>> transpose_song('Thi\[F#]s is \key{Eb}an e\[A]xample \[F#]song', 5, clean_key_change_signals=False)
-	'Thi\\\\[B]s is \\\\key{Ab}an e\\\\[D]xample \\\\[Cb]song'
+	>>> transpose_song('Thi\[F#]s is \key{Eb}an e\[A]xample \[F#]song', 7, clean_key_change_signals=False)
+	'Thi\\\\[C#]s is \\\\key{Bb}an e\\\\[E]xample \\\\[Db]song'
 	"""
 	# Get auto to_key without transposing it
 	chord_group_regex = config.get_chord_group_regex(pre_chord, post_chord)

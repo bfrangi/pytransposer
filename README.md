@@ -97,18 +97,20 @@ And you can pass custom `pre_chord` and `post_chord` regex patterns to specify h
 'Exa<<MI/FA>>mple so<<REb4>>ng'
 ```
 
-The target `to_key` can also be changed at any point in the song by adding `\key{<to_key>}` whenever it should be changed (for example, `\key{DO}` or `\key{D#}`).
+The target `to_key` can also be changed at any point in the song by adding `\key{<to_key>}` whenever it should be changed (for example, `\key{DO}` or `\key{D#}`) or by adding `\key{<half_tones>}` (for example, `\key{+2}` or `\key{-5}`).
 
 ```python
 >>> transpose_song('Thi\[F#]s is \key{Eb}an e\[A]xample \[F#]song')
+	'Thi\[F#]s is an e\[A]xample \[Gb]song'
+>>> transpose_song('Thi\[F#]s is \key{-3}an e\[A]xample \[F#]song')
 	'Thi\[F#]s is an e\[A]xample \[Gb]song'
 ```
 
 You can change `pre_key` and `post_key` to change the way that the key changes are indicated:
 
 ```python
->>> transpose_song('Thi\[F#]s is \|Eb|an e\[A]xample \[F#]song', 5, pre_key=r'\\|', post_key=r'\|')
-	'Thi\[B]s is an e\[D]xample \[Cb]song'
+>>> transpose_song('Thi\[F#]s is \|Eb|an e\[A]xample \[F#]song', 7, pre_key=r'\\|', post_key=r'\|')
+'Thi\[C#]s is an e\[E]xample \[Db]song'
 	
 ```	
 
@@ -116,8 +118,8 @@ By default, the function removes the key change signalling strings. You can avoi
 to `False`. 
 
 ```python
->>> transpose_song('Thi\[F#]s is \key{Eb}an e\[A]xample \[F#]song', 5, clean_key_change_signals=False)
-	'Thi\[B]s is \key{Ab}an e\[D]xample \[Cb]song'
+>>> transpose_song('Thi\[F#]s is \key{Eb}an e\[A]xample \[F#]song', 7, clean_key_change_signals=False)
+'Thi\[C#]s is \key{Bb}an e\[E]xample \[Db]song'
 ```
 	
 

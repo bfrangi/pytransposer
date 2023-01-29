@@ -6,14 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - No unreleased changes.
 
+## [1.3.2] - 2023-01-29
+### Changed
+- Replace Ab reference with G# reference.
+- Update `README.md`.
+
 ## [1.3.1] - 2022-12-16
 ### Changed
 - Fix bug in `pytransposer.transposer.song_key_segments`.
-- Replace G# reference with Ab reference
+- Replace G# reference with Ab reference.
   
 ## [1.3.0] - 2022-12-15
 ### Added
-- Downloads badge in `README.md`
+- Downloads badge in `README.md`.
 - Ability to change the key of the song half-way through.
   
 ## [1.2.2] - 2022-10-22
@@ -34,10 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed the algorithm used to transpose chords.
 - Update [`README.md`](README.md).
 ### Removed
-- Sub-modules `abc.py` and `doremi.py` and all methods within them (old methods from the previously used transposing algorithm)
-  
-<!-- ### Changed
-### Removed -->
+- Sub-modules `abc.py` and `doremi.py` and all methods within them (old methods from the previously used transposing algorithm).
 
 ## [1.1.2] - 2022-10-13
 ### Changed
@@ -63,7 +65,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-[Unreleased]: https://github.com/bfrangi/pytransposer/compare/v1.3.1...HEAD
+[Unreleased]: https://github.com/bfrangi/pytransposer/compare/v1.3.2...HEAD
+[1.3.2]: https://github.com/bfrangi/pytransposer/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/bfrangi/pytransposer/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/bfrangi/pytransposer/compare/v1.2.1...v1.3.0
 [1.2.2]: https://github.com/bfrangi/pytransposer/compare/v1.2.1...v1.2.2
