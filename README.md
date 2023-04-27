@@ -12,6 +12,14 @@ Python module for transposing chords and entire songs from one key to another an
 - Output chords/song following a specific target key
 - Change target key part-way through a song
 
+## Installation
+
+`pytransposer` can be installed from PyPI:
+
+```
+pip install pytransposer
+```
+
 ## Usage
 
 ### Transposing Single Chords
