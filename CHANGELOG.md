@@ -4,7 +4,7 @@ All notable changes to the `pytransposer` extension will be documented in this f
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- No unreleased changes.
+- Update `README.md` and `CHANGELOG.md.
 
 ## [1.3.2] - 2023-01-29
 ### Changed
